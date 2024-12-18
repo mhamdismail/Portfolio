@@ -27,7 +27,7 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
 
     if (isOpen) {
       gsap.to(form, {
-        height: "auto",
+        height: "500px",
         opacity: 1,
         paddingTop: 20,
         paddingBottom: 20,
@@ -112,7 +112,7 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
         className="mt-4 bg-gradient-to-tr from-blue-400 to-blue-500 text-black shadow-2xl rounded-lg overflow-hidden opacity-0 h-0 transition-all"
       >
         <div className="p-4 sm:p-6">
-          <h2 className="text-xl font-bold text-white mb-4 text-center">
+          <h2 className="text-xl font-bold text-white mb-1 text-center">
             Get in Touch
           </h2>
           <div className="space-y-4">
@@ -171,7 +171,7 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
                 onChange={handleChange}
                 placeholder="Your Message"
                 rows={4}
-                className="w-full p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all resize-none"
+                className="w-full h-10 p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all "
               ></textarea>
             </div>
 
