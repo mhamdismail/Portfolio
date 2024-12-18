@@ -87,32 +87,27 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="embla w-full flex justify-center items-center pt-2">
-      <div
-        className="embla__viewport w-full h-[700px]  sm:h-[500px] overflow-hidden"
-        ref={emblaRef}
-      >
-        <div className="embla__container flex h-full gap-3 py-20">
-          {services.map((service, index) => (
-            <div
-              className={`flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 h-full${
-                index === 0 ? "pl-2" : ""
-              } ${index === services.length - 1 ? "pr-4" : ""}`}
-              key={index}
-            >
-              <div className="h-[550px] w-full flex justify-center items-center py-0 px-0">
-                <FlipCard
-                  title={service.title}
-                  iconSrc={service.iconSrc}
-                  skillName={service.skillName}
-                  description={service.description}
-                  detailedDescription={service.detailedDescription}
-                  linkHref={service.linkHref}
-                />
-              </div>
+    <div className="embla__viewport w-full h-[600px] sm:h-[500px]">
+      <div className="embla__container flex gap-4 px-2 h-full">
+        {services.map((service, index) => (
+          <div
+            className={`flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 h-full ${
+              index === 0 ? "pl-2" : ""
+            } ${index === services.length - 1 ? "pr-4" : ""}`}
+            key={index}
+          >
+            <div className="flex justify-center items-center h-full">
+              <FlipCard
+                title={service.title}
+                iconSrc={service.iconSrc}
+                skillName={service.skillName}
+                description={service.description}
+                detailedDescription={service.detailedDescription}
+                linkHref={service.linkHref}
+              />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

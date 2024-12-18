@@ -13,7 +13,7 @@ const Services = () => {
     {
       title: "Frontend Development",
       description:
-        "Creating dynamic, high-performing user interfaces using modern frontend frameworks like React.js and Next.js. Specializing in responsive design and SEO optimization.",
+        "Creating dynamic, high-performing user interfaces using modern frontend frameworks like React.js and Next.js.",
       detailedDescription:
         "With a focus on performance and SEO optimization, we specialize in building scalable, responsive websites using React and modern frontend technologies like Next.js. Our designs ensure an intuitive user experience.",
       linkHref: "#frontend-development",
@@ -23,7 +23,7 @@ const Services = () => {
     {
       title: "Backend Development",
       description:
-        "Building robust backend systems with technologies like Node.js, Express.js, and Laravel. Focused on scalability, security, and performance optimization.",
+        "Building robust backend systems with technologies like Node.js, Express.js, and Laravel. Focused on scalability and performance .",
       detailedDescription:
         "We develop scalable, secure backend systems using technologies like Node.js, Express.js, and Laravel. We focus on data integrity, security, and performance to ensure your application is fast, reliable, and safe.",
       linkHref: "#backend-development",
@@ -43,7 +43,7 @@ const Services = () => {
     {
       title: "E-commerce Solutions",
       description:
-        "Developing secure, scalable, and user-friendly e-commerce platforms with real-time inventory, secure payment gateways, and dynamic user experiences",
+        "Developing secure, scalable, and user-friendly e-commerce platforms with real-time inventory, secure payment gateways.",
       detailedDescription:
         "We build custom e-commerce platforms tailored to your business needs. From real-time inventory management to seamless payment gateways, we ensure a smooth shopping experience for your customers.",
       linkHref: "#ecommerce-solutions",
@@ -65,7 +65,7 @@ const Services = () => {
       description:
         "Building cross-platform desktop applications using WPF and C#",
       detailedDescription:
-        "We develop cross-platform desktop applications using WPF and C#, ensuring performance and security. Our goal is to provide seamless experiences for users on different platforms, without compromising functionality.",
+        "We develop cross-platform desktop applications using WPF and C#, ensuring performance and security. Our goal is to provide seamless experiences for users on different platforms=",
       linkHref: "#desktop-application",
       iconSrc: <IoIosDesktop />,
       skillName: "WPF, C#, Cross-Platform Development",
