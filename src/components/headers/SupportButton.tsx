@@ -1,12 +1,13 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import SubmitButton from "../Button/SubmitButton";
 import gsap from "gsap";
+
 interface SupportButtonProps {
   isVisible: boolean;
 }
+
 const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,43 +20,33 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
   const formRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (isVisible) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [isVisible]);
-  useEffect(() => {
     const form = formRef.current;
-    if (form) {
-      const fullHeight = form.scrollHeight + 40;
-      if (isOpen) {
-        gsap.to(form, {
-          height: fullHeight,
-          paddingBottom: 20,
-          paddingTop: 20,
-          duration: 1,
-          ease: "power3.inOut",
-          onComplete: () => {
-            gsap.set(form, { height: "auto" });
-          },
-        });
-      } else {
-        // Closing the form with an animation
-        gsap.to(form, {
-          height: 0,
-          paddingBottom: 0,
-          paddingTop: 0,
-          duration: 1,
-          ease: "power3.inOut",
-        });
-      }
+    if (!form) return;
+    const commonDuration = 1.2;
+    const commonEasing = "power2.inOut";
+
+    if (isOpen) {
+      gsap.to(form, {
+        height: "auto",
+        opacity: 1,
+        paddingTop: 20,
+        paddingBottom: 20,
+        duration: commonDuration,
+        ease: commonEasing,
+      });
+    } else {
+      gsap.to(form, {
+        height: 0,
+        opacity: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        duration: commonDuration,
+        ease: commonEasing,
+      });
     }
   }, [isOpen]);
 
-  const toggleForm = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const toggleForm = () => setIsOpen((prev) => !prev);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,37 +55,26 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Validate email format
-  const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // Handle form submission
   const submit = async () => {
     if (!isValidEmail(formData.email)) {
       toast.error("Please enter a valid email address.");
       return false;
     }
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
-        });
-
+        setFormData({ name: "", email: "", phone: "", message: "" });
         toggleForm();
         toast.success("Message sent successfully!");
         return true;
@@ -103,95 +83,108 @@ const SupportButton: React.FC<SupportButtonProps> = ({ isVisible = true }) => {
         return false;
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error:", error);
       toast.error("An error occurred while sending the message.");
       return false;
     }
   };
 
   return (
-    <div className="relative md: bottom-0 w-[80vw] sm:w-2/3 md:w-1/2 text-white">
+    <div className="fixed bottom-6 right-6 w-[70vw] sm:w-[350px]">
       <ToastContainer />
       <div
         onClick={toggleForm}
-        className="relative bg-gradient-to-tr from-blue-400 to-blue-500 rounded-tl-full flex items-center justify-center bg-customDarkBlue pt-2 cursor-pointer text-lg md:text-2xl"
+        className="flex items-center justify-center gap-2 bg-blue-500 text-white p-3 rounded-full shadow-lg cursor-pointer transition-transform duration-300 hover:scale-110"
       >
-        {isOpen && (
-          <Image
-            src="/icon/close.png"
-            alt="Close Form"
-            loading="lazy"
-            width={30}
-            height={30}
-            className="absolute right-0 top-0"
-          />
-        )}
         <Image
-          src="/icon/support.png"
+          src={isOpen ? "/icon/close.png" : "/icon/support.png"}
           alt="Support"
-          loading="lazy"
-          width={50}
-          height={30}
+          width={24}
+          height={24}
         />
-        <span>Contact Us</span>
+        <span className="text-lg font-semibold">
+          {isOpen ? "Close" : "Contact Us"}
+        </span>
       </div>
 
       <div
         ref={formRef}
-        className="space-y-2 bg-gradient-to-tr from-blue-400 to-blue-500 px-4 h-0 overflow-hidden"
+        className="mt-4 bg-gradient-to-tr from-blue-400 to-blue-500 text-black shadow-2xl rounded-lg overflow-hidden opacity-0 h-0 transition-all"
       >
-        <div>
-          <label className="text-sm font-semibold">Name</label>
-          <input
-            type="text"
-            name="name"
-            className="w-full p-1 border placeholder:text-transparent text-blue-500 border-white outline-none"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+        <div className="p-4 sm:p-6">
+          <h2 className="text-xl font-bold text-white mb-4 text-center">
+            Get in Touch
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-gray-100 font-medium mb-1">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Your Name"
+                className="w-full p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all"
+              />
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label className="block text-gray-100 font-medium mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Your Email"
+                className="w-full p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all"
+              />
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <label className="block text-gray-100 font-medium mb-1">
+                Phone
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Your Phone"
+                className="w-full p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all"
+              />
+            </div>
+
+            {/* Message Field */}
+            <div>
+              <label className="block text-gray-100 font-medium mb-1">
+                Message
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your Message"
+                rows={4}
+                className="w-full p-2 rounded-lg border-2 border-blue-300 focus:border-blue-500 outline-none transition-all resize-none"
+              ></textarea>
+            </div>
+
+            {/* Submit Button */}
+            <div className="text-center">
+              <SubmitButton
+                name="Send"
+                submit={submit}
+                onSuccess={() => toast.success("Message sent successfully!")}
+              />
+            </div>
+          </div>
         </div>
-        <div>
-          <label className="text-md font-semibold">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full p-2 border placeholder:text-transparent text-blue-500 border-white outline-none"
-            placeholder="Your Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label className="text-md font-semibold">Phone</label>
-          <input
-            type="tel"
-            name="phone"
-            className="w-full p-2 border placeholder:text-transparent text-blue-500 border-white outline-none"
-            placeholder="Your Phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium">Message</label>
-          <textarea
-            name="message"
-            className="w-full p-2 border placeholder:text-transparent text-blue-500 border-white outline-none"
-            placeholder="Your Message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <SubmitButton
-          name="Submit"
-          submit={submit}
-          onSuccess={() => toast.success("Message sent successfully!")}
-        />
       </div>
     </div>
   );

@@ -92,7 +92,7 @@ const Services = () => {
         className="embla__viewport w-full h-[700px]  sm:h-[500px] overflow-hidden"
         ref={emblaRef}
       >
-        <div className="embla__container flex h-full gap-3">
+        <div className="embla__container flex h-full gap-3 py-20">
           {services.map((service, index) => (
             <div
               className={`flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 h-full${
@@ -100,7 +100,7 @@ const Services = () => {
               } ${index === services.length - 1 ? "pr-4" : ""}`}
               key={index}
             >
-              <div className="h-full w-full flex justify-center items-center py-0 px-0">
+              <div className="h-[550px] w-full flex justify-center items-center py-0 px-0">
                 <FlipCard
                   title={service.title}
                   iconSrc={service.iconSrc}

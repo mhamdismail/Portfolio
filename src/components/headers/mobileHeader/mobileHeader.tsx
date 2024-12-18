@@ -19,7 +19,6 @@ const MobileHeader: React.FC = () => {
     setIsSideNavOpen((prev) => !prev); // Toggle between open and close
   };
 
-  // GSAP animation for support button
   useEffect(() => {
     if (supportButtonRef.current) {
       gsap.fromTo(

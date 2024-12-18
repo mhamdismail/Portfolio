@@ -13,11 +13,11 @@ const SubmitButton: React.FC<ComponentProps> = ({
   onSuccess,
 }) => {
   const handleClick = async () => {
-    const isSuccess = await submit(); // Call submit and wait for it to complete
+    const isSuccess = await submit();
     if (isSuccess) {
-      onSuccess(); // Call onSuccess if submission is successful
+      onSuccess();
     } else {
-      toast.error("Failed to send message."); // Show error toast if there's an issue
+      toast.error("Failed to send message.");
     }
   };
   return (
